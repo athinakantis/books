@@ -23,6 +23,15 @@ function Books() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const getBooks = async () => {
+            try {
+                const response = await get('books');
+                setBooks(response);
+            } catch (error) {
+                console.error('Error fetching books:', error);
+            }
+        };
+
         if (data.length === 0) {
             getBooks();
         }
@@ -30,14 +39,22 @@ function Books() {
 
     useMemo(() => {
         if (searchTerm) {
-
             const filteredBooks = [];
             filteredBooks.push(
-                data.filter((item) => item?.author?.includes(searchTerm))
-            , data.filter((item) => item?.name?.includes(searchTerm)))
-            // add genre filter 
-
-            console.log(filteredBooks);
+                data.filter(
+                    (item) =>
+                        item.author.includes(searchTerm) ||
+                        item.name.includes(searchTerm) ||
+                        item.genres.some((genre) =>
+                            genre
+                                .toLowerCase()
+                                .includes(searchTerm.toLowerCase())
+                        )
+                )
+            );
+            setBooks(filteredBooks.flat());
+        } else {
+            setBooks(data);
         }
     }, [searchTerm]);
 
@@ -46,16 +63,6 @@ function Books() {
         setSearchTerm(value);
     };
 
-    // TODO: Replace axios with useAxios hook
-    async function getBooks() {
-        try {
-            await get('books');
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    // TODO: Implement search functionality
     return (
         <Box sx={{ mx: 'auto', p: 2 }}>
             {loading && <CircularProgress />}
@@ -76,7 +83,7 @@ function Books() {
                             onChange={handleChange}
                         />
 
-                        {data?.map((book) => (
+                        {books?.map((book) => (
                             <Card
                                 sx={{
                                     display: 'flex',
@@ -87,10 +94,20 @@ function Books() {
                                 key={book.name}
                             >
                                 <CardMedia
-                                    sx={{ height: 250 }}
-                                    image={book.img}
+                                    sx={{
+                                        height: 250,
+                                    }}
+                                    image={`https://placehold.co/250x250/004c3f/FFFFFF/?text=${book.name}`}
                                     title={book.name}
-                                />
+                                >
+                                    <CardMedia
+                                        sx={{
+                                            height: 250,
+                                        }}
+                                        image={book.img}
+                                        title={book.name}
+                                    ></CardMedia>
+                                </CardMedia>
                                 <Box sx={{ pt: 2, pl: 2 }}>
                                     {book.genres.map((genre, i) => (
                                         <Chip
