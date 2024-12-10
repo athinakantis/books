@@ -6,7 +6,6 @@ import SearchIcon from '@mui/icons-material/Search';
 function Header({ searchTerm, setSearchTerm }) {
     const handleChange = (e) => {
         const { value } = e.target;
-        console.log(value);
         setSearchTerm(value);
     };
 
