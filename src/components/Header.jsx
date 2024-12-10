@@ -1,17 +1,29 @@
 import { Link } from 'react-router-dom';
 import { Button, Box, AppBar, Toolbar, Typography } from '@mui/material';
+import { Search, SearchIconWrapper, StyledInputBase } from './Searchbar';
+import SearchIcon from '@mui/icons-material/Search';
 
-function Header() {
+function Header({ searchTerm, setSearchTerm }) {
+    const handleChange = (e) => {
+        const { value } = e.target;
+        console.log(value);
+        setSearchTerm(value);
+    };
+
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position='static'>
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography
+                        variant='h6'
+                        component='div'
+                        sx={{ flexGrow: 1 }}
+                    >
                         <Typography
-                            variant="h5"
+                            variant='h5'
                             noWrap
                             component={Link}
-                            to="/"
+                            to='/'
                             sx={{
                                 mr: 2,
                                 color: 'inherit',
@@ -21,11 +33,31 @@ function Header() {
                             Books
                         </Typography>
                     </Typography>
+                    <Search sx={{ marginRight: '1rem' }}>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            value={searchTerm}
+                            onChange={handleChange}
+                            placeholder='Search…'
+                        />
+                    </Search>
 
-                    <Button color="inherit" variant="text" component={Link} to="/">
+                    <Button
+                        color='inherit'
+                        variant='text'
+                        component={Link}
+                        to='/'
+                    >
                         Home
                     </Button>
-                    <Button color="inherit" variant="text" component={Link} to="/addnew">
+                    <Button
+                        color='inherit'
+                        variant='text'
+                        component={Link}
+                        to='/addnew'
+                    >
                         Add New
                     </Button>
                 </Toolbar>

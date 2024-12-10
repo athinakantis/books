@@ -14,13 +14,14 @@ import {
 } from '@mui/material';
 import useAxios from '../services/useAxios';
 import { useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 
 function Books() {
     const apiUrl = 'http://localhost:3000';
     const { data, alert, loading, error, get } = useAxios(apiUrl);
     const [books, setBooks] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useOutletContext();
 
     useEffect(() => {
         const getBooks = async () => {
@@ -43,8 +44,12 @@ function Books() {
             filteredBooks.push(
                 data.filter(
                     (item) =>
-                        item.author.includes(searchTerm) ||
-                        item.name.includes(searchTerm) ||
+                        item.author
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()) ||
+                        item.name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()) ||
                         item.genres.some((genre) =>
                             genre
                                 .toLowerCase()
@@ -58,11 +63,6 @@ function Books() {
         }
     }, [searchTerm]);
 
-    const handleChange = (e) => {
-        const { value } = e.target;
-        setSearchTerm(value);
-    };
-
     return (
         <Box sx={{ mx: 'auto', p: 2 }}>
             {loading && <CircularProgress />}
@@ -75,14 +75,6 @@ function Books() {
                         useFlexGap
                         flexWrap='wrap'
                     >
-                        <TextField
-                            id='outlined-basic'
-                            label='Search'
-                            variant='outlined'
-                            value={searchTerm}
-                            onChange={handleChange}
-                        />
-
                         {books?.map((book) => (
                             <Card
                                 sx={{
