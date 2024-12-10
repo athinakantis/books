@@ -17,13 +17,13 @@ function AddBook() {
     const { alert, post } = useAxios('http://localhost:3000');
     const [rateValue, setRateValue] = useState(3);
     const [book, setBook] = useState({
-        author: 'Sally Rooney',
-        name: 'Intermezzo',
-        genres: ['Non-Fiction'],
+        author: '',
+        name: '',
+        genres: [],
         completed: false,
-        start: '01-01-2004',
+        start: null,
         end: null,
-        stars: 3,
+        stars: null,
     });
 
     const genreChangeHandler = (event) => {
@@ -78,10 +78,8 @@ function AddBook() {
                     id='outlined-basic'
                     label='Title'
                     variant='outlined'
-                    value={book.name}
                 />
                 <TextField
-                    value={book.author}
                     name='author'
                     id='outlined-basic'
                     label='Author'
