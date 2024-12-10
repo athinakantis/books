@@ -17,13 +17,13 @@ function AddBook() {
     const { alert, post } = useAxios('http://localhost:3000');
     const [rateValue, setRateValue] = useState(3);
     const [book, setBook] = useState({
-        author: '',
-        name: '',
-        genres: [],
+        author: 'Sally Rooney',
+        name: 'Intermezzo',
+        genres: ['Non-Fiction'],
         completed: false,
-        start: null,
+        start: '01-01-2004',
         end: null,
-        stars: null,
+        stars: 3,
     });
 
     const genreChangeHandler = (event) => {
@@ -51,15 +51,13 @@ function AddBook() {
         }
     };
 
-    function postHandler() {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         post('books', book);
-    }
+    };
 
     return (
-        <form
-            onChange={addBookHandler}
-            onSubmit={postHandler}
-        >
+        <form onChange={addBookHandler}>
             <Stack
                 spacing={1}
                 alignItems='stretch'
@@ -80,8 +78,10 @@ function AddBook() {
                     id='outlined-basic'
                     label='Title'
                     variant='outlined'
+                    value={book.name}
                 />
                 <TextField
+                    value={book.author}
                     name='author'
                     id='outlined-basic'
                     label='Author'
@@ -141,7 +141,8 @@ function AddBook() {
                 </Stack>
                 <Button
                     variant='contained'
-                    type='submit'
+                    type='button'
+                    onClick={handleSubmit}
                 >
                     Add new
                 </Button>
