@@ -16,27 +16,28 @@ import { useNavigate } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
 
 function Books() {
-    const { data, alert, loading, error, get } = useAxios('http://localhost:3000');
+    const { data, alert, loading, error, get } = useAxios(
+        'http://localhost:3000'
+    );
     const [books, setBooks] = useState([]);
     const [searchTerm] = useOutletContext();
     const navigate = useNavigate();
 
     // Initial book fetch
     useEffect(() => {
-        const getBooks = async () => {
-            try {
-                const response = await get('books');
-                setBooks(response);
-            } catch (error) {
-                console.error('Error fetching books:', error);
-            }
-        };
-
         if (data.length === 0) {
             getBooks();
         }
     }, []);
 
+    const getBooks = async () => {
+        try {
+            const response = await get('books');
+            setBooks(response);
+        } catch (error) {
+            console.error('Error fetching books:', error);
+        }
+    };
     // Filter method. Runs when searchterm is not falsy
     useMemo(() => {
         if (searchTerm) {
@@ -89,7 +90,7 @@ function Books() {
                                     sx={{
                                         height: 250,
                                         backgroundColor: '#004d3f',
-                                        backgroundSize: 'contain'
+                                        backgroundSize: 'contain',
                                     }}
                                     image='http://localhost:3000/book_placeholder.svg'
                                     title={book.name}

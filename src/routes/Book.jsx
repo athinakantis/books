@@ -30,7 +30,7 @@ function Book() {
     }, []);
 
     return (
-        <Box sx={{ mx: 'auto', width: '70%', mt: '3rem' }}>
+        <Box sx={{ mx: 'auto', width: '70%', mt: '3rem', maxWidth: 630 }}>
             <Stack
                 sx={{
                     display: 'flex',
