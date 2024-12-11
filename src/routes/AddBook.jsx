@@ -26,6 +26,7 @@ function AddBook() {
         stars: null,
     });
 
+    // Handle function that updates new book genres.
     const genreChangeHandler = (event) => {
         const { value } = event.target;
         setBook({
@@ -34,6 +35,7 @@ function AddBook() {
         });
     };
 
+    // Handle function that updates rating
     const rateChangeHandler = (event) => {
         const { value } = event.target;
         setBook({
@@ -42,6 +44,7 @@ function AddBook() {
         });
     };
 
+    // Handle function that updates if book is completed or not
     const addBookHandler = (e) => {
         const { name, value, checked, type } = e.target;
         if (type === 'checkbox' && name === 'completed') {
@@ -51,6 +54,7 @@ function AddBook() {
         }
     };
 
+    // Handle function that submits new book to 'database'
     const handleSubmit = (e) => {
         e.preventDefault();
         post('books', book);
@@ -66,11 +70,7 @@ function AddBook() {
                 {alert.show && (
                     <Alert severity={alert.type}>{alert.message}</Alert>
                 )}
-                <Typography
-                    variant='h4'
-                    component='h2'
-                    sx={{ my: 10 }}
-                >
+                <Typography variant='h4' component='h2' sx={{ my: 10 }}>
                     Add a book
                 </Typography>
                 <TextField
@@ -101,10 +101,7 @@ function AddBook() {
                     input={<OutlinedInput label='Genre' />}
                 >
                     {bookGenres.map((name) => (
-                        <MenuItem
-                            key={name}
-                            value={name}
-                        >
+                        <MenuItem key={name} value={name}>
                             {name}
                         </MenuItem>
                     ))}
@@ -116,18 +113,15 @@ function AddBook() {
                     label='Completed'
                 />
 
-                <DateField
-                    name='start'
-                    label='Started'
-                />
+                <DateField name='start' label='Started' />
                 <DateField
                     name='end'
                     label='Finished'
                     disabled={!book.completed}
                 />
-                <Stack spacing={1}>
+                <Stack spacing={0}>
                     <Rating
-                        sx={{ width: 'fit-content' }}
+                        sx={{ width: 'fit-content', m: '0.5rem auto' }}
                         name='stars'
                         value={rateValue}
                         onClick={rateChangeHandler}
