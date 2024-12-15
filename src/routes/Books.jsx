@@ -19,11 +19,7 @@ function Books() {
     const { data, alert, loading, error, get } = useAxios(
         'http://localhost:3000'
     );
-    const { data, alert, loading, error, get } = useAxios(
-        'http://localhost:3000'
-    );
     const [books, setBooks] = useState([]);
-    const [searchTerm] = useOutletContext();
     const navigate = useNavigate();
     const [searchTerm] = useOutletContext();
 
