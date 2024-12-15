@@ -26,6 +26,7 @@ function AddBook() {
         stars: null,
     });
 
+    // Update new book genres if genre input changes
     const genreChangeHandler = (event) => {
         const { value } = event.target;
         setBook({
@@ -34,6 +35,7 @@ function AddBook() {
         });
     };
 
+    // Update new book rating if rating input changes
     const rateChangeHandler = (event) => {
         const { value } = event.target;
         setBook({
@@ -42,6 +44,7 @@ function AddBook() {
         });
     };
 
+    // Update new book completed status if checkbox is checked or not
     const addBookHandler = (e) => {
         const { name, value, checked, type } = e.target;
         if (type === 'checkbox' && name === 'completed') {
@@ -51,6 +54,7 @@ function AddBook() {
         }
     };
 
+    // Use useAxios hook to post the book to the 'database'
     const handleSubmit = (e) => {
         e.preventDefault();
         post('books', book);

@@ -4,6 +4,7 @@ import { Search, SearchIconWrapper, StyledInputBase } from './Searchbar';
 import SearchIcon from '@mui/icons-material/Search';
 
 function Header({ searchTerm, setSearchTerm }) {
+    // Update searchterm when searchbar input changes
     const handleChange = (e) => {
         const { value } = e.target;
         setSearchTerm(value);

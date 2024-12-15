@@ -17,12 +17,14 @@ import { useNavigate } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
 
 function Books() {
-    const apiUrl = 'http://localhost:3000';
-    const { data, alert, loading, error, get } = useAxios(apiUrl);
+    const { data, alert, loading, error, get } = useAxios(
+        'http://localhost:3000'
+    );
     const [books, setBooks] = useState([]);
     const navigate = useNavigate();
-    const [searchTerm, setSearchTerm] = useOutletContext();
+    const [searchTerm] = useOutletContext();
 
+    // On mount, fetch all books from 'database' using useAxios hook
     useEffect(() => {
         const getBooks = async () => {
             try {
@@ -38,6 +40,8 @@ function Books() {
         }
     }, []);
 
+    // If user types in searchbar, set books to filtered result
+    // Books are filtered by: Author, genre and title
     useMemo(() => {
         if (searchTerm) {
             const filteredBooks = [];

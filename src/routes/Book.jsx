@@ -14,18 +14,20 @@ import { useParams } from 'react-router-dom';
 
 function Book() {
     const [book, setBook] = useState({});
-    const apiUrl = 'http://localhost:3000';
-    const { data, alert, loading, error, get } = useAxios(apiUrl);
+    const { data, alert, loading, error, get } = useAxios(
+        'http://localhost:3000'
+    );
     const { id } = useParams();
 
+    // Fetch single book from API upon mount using useAxios hook
     useEffect(() => {
         const getBook = async () => {
             const response = await get(`books/${id}`);
             setBook(response);
         };
-
         getBook();
     }, []);
+
     return (
         <Container
             sx={{
