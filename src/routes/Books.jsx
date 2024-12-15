@@ -10,7 +10,6 @@ import {
     Rating,
     Chip,
     Typography,
-    TextField,
 } from '@mui/material';
 import useAxios from '../services/useAxios';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +19,11 @@ function Books() {
     const { data, alert, loading, error, get } = useAxios(
         'http://localhost:3000'
     );
+    const { data, alert, loading, error, get } = useAxios(
+        'http://localhost:3000'
+    );
     const [books, setBooks] = useState([]);
+    const [searchTerm] = useOutletContext();
     const navigate = useNavigate();
     const [searchTerm] = useOutletContext();
 
@@ -92,8 +95,10 @@ function Books() {
                                 <CardMedia
                                     sx={{
                                         height: 250,
+                                        backgroundColor: '#004d3f',
+                                        backgroundSize: 'contain',
                                     }}
-                                    image={`https://placehold.co/250x250/004c3f/FFFFFF/?text=${book.name}`}
+                                    image='http://localhost:3000/book_placeholder.svg'
                                     title={book.name}
                                 >
                                     <CardMedia

@@ -129,9 +129,9 @@ function AddBook() {
                     label='Finished'
                     disabled={!book.completed}
                 />
-                <Stack spacing={1}>
+                <Stack spacing={0}>
                     <Rating
-                        sx={{ width: 'fit-content' }}
+                        sx={{ width: 'fit-content', m: '0.5rem auto' }}
                         name='stars'
                         value={rateValue}
                         onClick={rateChangeHandler}
