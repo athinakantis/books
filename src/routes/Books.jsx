@@ -38,6 +38,7 @@ function Books() {
             console.error('Error fetching books:', error);
         }
     };
+
     // Filter method. Runs when searchterm is not falsy
     useMemo(() => {
         if (searchTerm) {
@@ -64,6 +65,10 @@ function Books() {
         }
     }, [searchTerm]);
 
+    const handleBrokenSrc = (e) => {
+        e.target.src = 'http://localhost:3000/book_placeholder.svg';
+    };
+
     return (
         <Box sx={{ mx: 'auto', p: 2 }}>
             {loading && <CircularProgress />}
@@ -87,22 +92,17 @@ function Books() {
                                 key={book.name}
                             >
                                 <CardMedia
+                                    component='img'
+                                    onError={(e) => handleBrokenSrc(e)}
                                     sx={{
                                         height: 250,
-                                        backgroundColor: '#004d3f',
-                                        backgroundSize: 'contain',
                                     }}
-                                    image='http://localhost:3000/book_placeholder.svg'
+                                    image={
+                                        book.img ||
+                                        'http://localhost:3000/book_placeholder.svg'
+                                    }
                                     title={book.name}
-                                >
-                                    <CardMedia
-                                        sx={{
-                                            height: 250,
-                                        }}
-                                        image={book.img}
-                                        title={book.name}
-                                    ></CardMedia>
-                                </CardMedia>
+                                ></CardMedia>
                                 <Box sx={{ pt: 2, pl: 2 }}>
                                     {book.genres.map((genre, i) => (
                                         <Chip
