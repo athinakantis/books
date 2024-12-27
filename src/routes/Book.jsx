@@ -1,11 +1,9 @@
 import {
-    Container,
     CardMedia,
     Box,
     Typography,
     CardActions,
     Chip,
-    Button,
     Rating,
     Stack,
 } from '@mui/material';
@@ -19,6 +17,10 @@ function Book() {
         'http://localhost:3000'
     );
     const { id } = useParams();
+
+    const handleBrokenSrc = (e) => {
+        e.target.src = 'http://localhost:3000/book_placeholder.svg';
+    };
 
     // Initial book fetch
     useEffect(() => {
@@ -41,24 +43,19 @@ function Book() {
                 key={book.name}
             >
                 <CardMedia
+                    component='img'
+                    onError={(e) => handleBrokenSrc(e)}
                     sx={{
                         height: '100%',
                         width: 300,
                         backgroundSize: 'contain',
-                        backgroundColor: '#004d3f'
+                        objectFit: 'contain'
                     }}
-                    image='http://localhost:3000/book_placeholder.svg'
+                    image={
+                        book.img || 'http://localhost:3000/book_placeholder.svg'
+                    }
                     title={book.name}
-                >
-                    <CardMedia
-                        sx={{
-                            height: '100%',
-                            width: 300,
-                        }}
-                        image={book.img}
-                        title={book.name}
-                    ></CardMedia>
-                </CardMedia>
+                ></CardMedia>
                 <Box sx={{ pt: 1, pl: 5, flex: 1 }}>
                     <Typography variant='h4' component='h2' sx={{ mt: 2 }}>
                         {book.name}
