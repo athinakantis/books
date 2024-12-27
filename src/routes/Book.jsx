@@ -18,6 +18,7 @@ function Book() {
     );
     const { id } = useParams();
 
+    // Handle function to change img src. Runs onError
     const handleBrokenSrc = (e) => {
         e.target.src = 'http://localhost:3000/book_placeholder.svg';
     };
@@ -57,10 +58,17 @@ function Book() {
                     title={book.name}
                 ></CardMedia>
                 <Box sx={{ pt: 1, pl: 5, flex: 1 }}>
-                    <Typography variant='h4' component='h2' sx={{ mt: 2 }}>
+                    <Typography
+                        variant='h4'
+                        component='h2'
+                        sx={{ mt: 2 }}
+                    >
                         {book.name}
                     </Typography>
-                    <Typography variant='subtitle1' sx={{ mb: 2 }}>
+                    <Typography
+                        variant='subtitle1'
+                        sx={{ mb: 2 }}
+                    >
                         {book.author}
                     </Typography>
                     {book?.genres?.map((genre, i) => (

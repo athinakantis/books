@@ -20,10 +20,10 @@ function Books() {
         'http://localhost:3000'
     );
     const [books, setBooks] = useState([]);
-    const [searchTerm] = useOutletContext();
     const navigate = useNavigate();
+    const [searchTerm] = useOutletContext();
 
-    // Initial book fetch
+    // On mount, fetch all books from 'database' using useAxios hook
     useEffect(() => {
         if (data.length === 0) {
             getBooks();
@@ -39,7 +39,8 @@ function Books() {
         }
     };
 
-    // Filter method. Runs when searchterm is not falsy
+    // Filter method. Runs when user types in searchbar
+    // Books are filtered by: Author, genre and title
     useMemo(() => {
         if (searchTerm) {
             const filteredBooks = [];
